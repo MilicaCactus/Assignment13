@@ -1,4 +1,4 @@
-const cells: NodeListOf<HTMLDivElement> = document.querySelectorAll(".cell");
+const box: NodeListOf<HTMLDivElement> = document.querySelectorAll(".box");
 const statusText: HTMLHeadingElement = document.querySelector("#statusText")!;
 const restartBtn: HTMLButtonElement = document.querySelector("#restartButton")!;
 
@@ -19,24 +19,24 @@ let running: boolean = false;
 initializeGame();
 
 function initializeGame(): void {
-    cells.forEach(cell => cell.addEventListener("click", cellClicked));
+    box.forEach(box => box.addEventListener("click", boxClicked));
     restartBtn.addEventListener("click", restartGame);
     statusText.textContent = `${currentPlayer}'s turn`;
     running = true;
 }
 
-function cellClicked(this: HTMLDivElement): void {
-    const cellIndex: string | null = this.getAttribute("cellIndex");
+function boxClicked(this: HTMLDivElement): void {
+    const boxIndex: string | null = this.getAttribute("data-boxindex");
 
-    if (cellIndex === null || options[+cellIndex] !== "" || !running) {
+    if (boxIndex === null || options[+boxIndex] !== "" || !running) {
         return;
     }
 
-    updateCell(this, +cellIndex);
+    updateBox(this, +boxIndex);
     checkWinner();
 }
 
-function updateCell(cell: HTMLDivElement, index: number): void {
+function updateBox(cell: HTMLDivElement, index: number): void {
     options[index] = currentPlayer;
     cell.textContent = currentPlayer;
 }
@@ -51,14 +51,14 @@ function checkWinner(): void {
 
     for (let i = 0; i < winConditions.length; i++) {
         const condition: number[] = winConditions[i];
-        const cellA: string = options[condition[0]];
-        const cellB: string = options[condition[1]];
-        const cellC: string = options[condition[2]];
+        const boxA: string = options[condition[0]];
+        const boxB: string = options[condition[1]];
+        const boxC: string = options[condition[2]];
 
-        if (cellA === "" || cellB === "" || cellC === "") {
+        if (boxA === "" || boxB === "" || boxC === "") {
             continue;
         }
-        if (cellA === cellB && cellB === cellC) {
+        if (boxA === boxB && boxB === boxC) {
             roundWon = true;
             break;
         }
@@ -67,11 +67,11 @@ function checkWinner(): void {
     if (roundWon) {
         statusText.textContent = `${currentPlayer} wins!!!`;
         running = false;
-    } else if (!options.includes("")) {
-        statusText.textContent = `It's a draw!!! `;
-        running = false;
+    } else if (!options.some(box => box === "")) {
+      changePlayer();
     } else {
-        changePlayer();
+        statusText.textContent = `its a draw!!!`;
+        running = false;
     }
 }
 
@@ -79,6 +79,6 @@ function restartGame(): void {
     currentPlayer = "X";
     options = ["", "", "", "", "", "", "", "", ""];
     statusText.textContent = `${currentPlayer}'s turn`;
-    cells.forEach(cell => cell.textContent = "");
+    box.forEach(box => box.textContent = "");
     running = true;
 }
