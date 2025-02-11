@@ -1,13 +1,14 @@
 const cells: NodeListOf<HTMLDivElement> = document.querySelectorAll(".cell");
-const statusText: HTMLDivElement = document.querySelector("#statusText")!;
-const restartBtn: HTMLButtonElement = document.querySelector("#restartBtn")!;
+const statusText: HTMLHeadingElement = document.querySelector("#statusText")!;
+const restartBtn: HTMLButtonElement = document.querySelector("#restartButton")!;
 
 const winConditions: number[][] = [
     [0, 1, 2],
-    [3, 4, 5],
     [6, 7, 8],
     [0, 3, 6],
     [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
     [2, 4, 6],
 ];
 
@@ -62,11 +63,12 @@ function checkWinner(): void {
             break;
         }
     }
+
     if (roundWon) {
-        statusText.textContent = `${currentPlayer} wins!`;
+        statusText.textContent = `${currentPlayer} wins!!!`;
         running = false;
     } else if (!options.includes("")) {
-        statusText.textContent = `Draw!`;
+        statusText.textContent = `It's a draw!!! `;
         running = false;
     } else {
         changePlayer();
