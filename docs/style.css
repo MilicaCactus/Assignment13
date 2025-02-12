@@ -1,21 +1,21 @@
-.cell{
+.box {
     width: 200px;
     height: 200px;
     border: 2px solid;
-    box-shadow: 0 0 0 2px;
+    box-shadow: 0 0 0 2px black;
     line-height: 200px;
     font-size: 100px;
     text-align: center;
     cursor: pointer;
 }
+
 #gameBox {
     text-align: center;
 }
-#cellBox{
+
+#cellBox {
     display: grid;
     grid-template-columns: repeat(3, 200px);
     width: 600px;
     margin: auto;
 }
-
-
