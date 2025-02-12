@@ -54,7 +54,7 @@ function checkWinner() {
   if (roundWon) {
     statusText.textContent = `${currentPlayer} wins!!!`;
     running = false;
-  } else if (!options.some((box2) => box2 === "")) {
+  } else if (options.some((box2) => box2 === "")) {
     changePlayer();
   } else {
     statusText.textContent = `its a draw!!!`;
