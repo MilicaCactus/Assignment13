@@ -68,4 +68,13 @@ function restartGame() {
   box.forEach((box2) => box2.textContent = "");
   running = true;
 }
+function updateHoverEffect() {
+  box.forEach((cell) => {
+    if (!cell.textContent) {
+      cell.setAttribute("data-hover", currentPlayer);
+    } else {
+      cell.removeAttribute("data-hover");
+    }
+  });
+}
 //# sourceMappingURL=main.js.map

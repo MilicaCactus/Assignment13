@@ -82,3 +82,13 @@ function restartGame(): void {
     box.forEach(box => box.textContent = "");
     running = true;
 }
+
+function updateHoverEffect(): void {
+    box.forEach(cell =>{
+    if (!cell.textContent) {
+        cell.setAttribute("data-hover", currentPlayer);
+    }else {
+        cell.removeAttribute("data-hover");
+    }
+    });
+}
