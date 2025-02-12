@@ -23,6 +23,7 @@ function initializeGame(): void {
     restartBtn.addEventListener("click", restartGame);
     statusText.textContent = `${currentPlayer}'s turn`;
     running = true;
+    updateHoverEffect()
 }
 
 function boxClicked(this: HTMLDivElement): void {
@@ -39,11 +40,14 @@ function boxClicked(this: HTMLDivElement): void {
 function updateBox(cell: HTMLDivElement, index: number): void {
     options[index] = currentPlayer;
     cell.textContent = currentPlayer;
+    cell.setAttribute("data-filed", "true")
+    cell.removeAttribute("data-hover");
 }
 
 function changePlayer(): void {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusText.textContent = `${currentPlayer}'s turn`;
+    updateHoverEffect();
 }
 
 function checkWinner(): void {
@@ -79,8 +83,12 @@ function restartGame(): void {
     currentPlayer = "X";
     options = ["", "", "", "", "", "", "", "", ""];
     statusText.textContent = `${currentPlayer}'s turn`;
-    box.forEach(box => box.textContent = "");
+    box.forEach(box => {
+        box.textContent = "";
+        box.removeAttribute("data-filled");
+    });
     running = true;
+    updateHoverEffect();
 }
 
 function updateHoverEffect(): void {
