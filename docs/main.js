@@ -19,6 +19,7 @@ function initializeGame() {
   restartBtn.addEventListener("click", restartGame);
   statusText.textContent = `${currentPlayer}'s turn`;
   running = true;
+  updateHoverEffect();
 }
 function boxClicked() {
   const boxIndex = this.getAttribute("data-boxindex");
@@ -31,10 +32,13 @@ function boxClicked() {
 function updateBox(cell, index) {
   options[index] = currentPlayer;
   cell.textContent = currentPlayer;
+  cell.setAttribute("data-filed", "true");
+  cell.removeAttribute("data-hover");
 }
 function changePlayer() {
   currentPlayer = currentPlayer === "X" ? "O" : "X";
   statusText.textContent = `${currentPlayer}'s turn`;
+  updateHoverEffect();
 }
 function checkWinner() {
   let roundWon = false;
@@ -65,8 +69,12 @@ function restartGame() {
   currentPlayer = "X";
   options = ["", "", "", "", "", "", "", "", ""];
   statusText.textContent = `${currentPlayer}'s turn`;
-  box.forEach((box2) => box2.textContent = "");
+  box.forEach((box2) => {
+    box2.textContent = "";
+    box2.removeAttribute("data-filled");
+  });
   running = true;
+  updateHoverEffect();
 }
 function updateHoverEffect() {
   box.forEach((cell) => {
