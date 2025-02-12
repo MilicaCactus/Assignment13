@@ -1,13 +1,21 @@
 .box {
     width: 200px;
     height: 200px;
-    border: 2px solid;
-    box-shadow: 0 0 0 2px black;
+    box-shadow: 0 0 0 2px darkblue;
+    background: lightpink   ;
     line-height: 200px;
     font-size: 100px;
     text-align: center;
     cursor: pointer;
+    color: white;
+
 }
+#title {
+    font-family: "Comic Sans MS";
+}
+
+
+
 
 #gameBox {
     text-align: center;
